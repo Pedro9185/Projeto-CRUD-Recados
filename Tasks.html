@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <header class="header bg-light">
+        <h3>Bem vindo ao seu mural de recados</h3>
+        <button onclick="sair()" class="btn btn-success btn-sair">
+            Sair
+        </button>
+    </header>
+    <main class="large-box bg-light">
+
+        <div class="row ">
+            <form id="form-cadastro">
+                <label for="inputDescricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="inputDescricao">
+                <label for="inputDetalhe" class="form-label">Detalhe</label>
+                <input type="text" class="form-control" id="inputDetalhe">
+                <div class="col-12 mt-3 mb-5">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+                <span id="feedback"></span>
+            </form>
+        </div>
+
+        <table class="table w-90">
+            <thead>
+                <tr>
+                    <th scope="col">#Id</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Detalhes</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="lista-recados">
+
+            </tbody>
+        </table>
+
+        <div class="modal" tabindex="-1" id="modal-excluir">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Excluir Recado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja realizar essa exclusão? essa operação é definitiva</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btn-delete" class="btn btn-danger">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" id="modal-editar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Recado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="form-editar">
+                        <div class="modal-body">
+                            <label for="descricaoAtualizado" class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="descricaoAtualizado">
+                            <label for="detalheAtualizado" class="form-label">Detalhe</label>
+                            <input type="text" class="form-control" id="detalheAtualizado">
+
+                            <span id="feedback"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="btn-edit" class="btn btn-danger">Salvar</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+
+    <script src="./js/Tasks.js"></script>
+</body>
+
+</html>
