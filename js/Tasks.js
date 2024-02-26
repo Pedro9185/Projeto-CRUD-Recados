@@ -1,5 +1,6 @@
+//Busca usuario logado
 const usuarioLogado = buscarDadosDoLocalStorage("usuarioLogado");
-
+//verifica se tem um usuario logado
 document.addEventListener("DOMContentLoaded", () => {
   if (!usuarioLogado.email) {
     window.location.href = "./SignIn.html";
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 const listaRecados = usuarioLogado.tasks;
 
+//mostra recados na tela
 document.addEventListener("DOMContentLoaded", mostrarRecados());
 
 const formularioCadastro = document.getElementById("form-cadastro");
@@ -87,7 +89,7 @@ function salvarRecados() {
   listaUsuarios[acharUsuario].tasks = listaRecados;
 
   guardarDadosLocalStorage("usuarios", listaUsuarios);
-  guardarDadosLocalStorage("usuarioLogado", usuarioLogado.tasks);
+  guardarDadosLocalStorage("usuarioLogado", usuarioLogado);
 }
 
 function mostrarModalExcluir(index, idRecado) {
@@ -106,36 +108,6 @@ function apagarRecado(index, idRecado) {
   salvarRecados();
 
   mostrarRecados();
-}
-function mostrarModalEditar(index, id) {
-  modalEditar.show();
-
-  const botalEditar = document.getElementById("btn-edit");
-
-  botalEditar.setAttribute("onclick", `editarRecado(${index}, ${id})`);
-}
-
-function editarRecado(index) {
-  const inputEditarDescricao = document.getElementById("descricaoAtualizado");
-  const inputEditarDetalhe = document.getElementById("detalheAtualizado");
-
-  inputEditarDescricao.value = usuarioLogado[index].descricao;
-  inputEditarDetalhe.value = usuarioLogado[index].detalhamento;
-
-  const formEditar = document.getElementById("form-editar");
-
-  formEditar.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    usuarioLogado.tasks[index].descricao.value = inputEditarDescricao.value;
-    usuarioLogado.tasks[index].detalhamento.value = inputEditarDetalhe.value;
-
-    guardarDadosLocalStorage("usuarioLogado", usuarioLogado);
-
-    mostrarRecados();
-
-    modalEditar.hide();
-  });
 }
 
 function sair() {
