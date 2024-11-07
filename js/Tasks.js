@@ -9,11 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 const listaRecados = usuarioLogado.tasks;
+let indiceAtualizacao = -1;
 
 //mostra recados na tela
 document.addEventListener("DOMContentLoaded", mostrarRecados());
 
 const formularioCadastro = document.getElementById("form-cadastro");
+const formularioUpdate = document.getElementById("form-editar");
 const modalExcluir = new bootstrap.Modal("#modal-excluir");
 const modalEditar = new bootstrap.Modal("#modal-editar");
 
@@ -77,10 +79,48 @@ function mostrarRecados() {
   });
 }
 
-/* 
-   
-*/
+formularioUpdate.addEventListener("submit", (ev) => {
+  ev.preventDefault();
 
+  if (!formularioUpdate.checkValidity()) {
+    formularioUpdate.classList.add("was-validated");
+    return;
+  }
+
+  const descricaoAtualizado = document.getElementById(
+    "descricaoAtualizado"
+  ).value;
+  const detalheAtualizado = document.getElementById("detalheAtualizado").value;
+
+  listaRecados[indiceAtualizacao].descricao = descricaoAtualizado;
+  listaRecados[indiceAtualizacao].detalhamento = detalheAtualizado;
+
+  // atualizar storage
+  guardarDadosLocalStorage("recados", listaRecados);
+
+  // atualizar html
+  mostrarRecados();
+
+  modalEditar.hide();
+  formularioUpdate.classList.remove("was-validated");
+  formularioUpdate.reset();
+  mostrarAlerta("success", "recado atualizado com sucesso!");
+  indiceAtualizacao = -1;
+});
+
+function mostrarModalEditar(index) {
+  const taskAtualizar = listaRecados[index];
+
+  modalEditar.show();
+  const descricaoUpdate = document.getElementById("descricaoAtualizado");
+  const detalhesUpdate = document.getElementById("detalheAtualizado");
+
+  descricaoUpdate.value = taskAtualizar.descricao;
+  detalhesUpdate.value = taskAtualizar.detalhamento;
+
+  indiceAtualizacao = index;
+  salvarRecados();
+}
 function salvarRecados() {
   const listaUsuarios = buscarDadosDoLocalStorage("usuarios");
   const acharUsuario = listaUsuarios.findIndex(
@@ -98,7 +138,6 @@ function mostrarModalExcluir(index, idRecado) {
 
   botaoExcluir.setAttribute("onclick", `apagarRecado(${index}, ${idRecado})`);
 }
-
 function apagarRecado(index, idRecado) {
   usuarioLogado.tasks.splice(index, 1);
   guardarDadosLocalStorage("usuarioLogado", usuarioLogado);
@@ -109,6 +148,8 @@ function apagarRecado(index, idRecado) {
 
   mostrarRecados();
 }
+
+function editarRecado(index, idRecado) {}
 
 function sair() {
   salvarRecados();
