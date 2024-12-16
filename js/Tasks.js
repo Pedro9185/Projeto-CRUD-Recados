@@ -153,7 +153,7 @@ function editarRecado(index, idRecado) {}
 
 function sair() {
   salvarRecados();
-  window.location.href = "/SignIn.html";
+  window.location.href = "/Projeto-CRUD-Recados/SignIn.html";
   localStorage.removeItem("usuarioLogado");
 }
 
